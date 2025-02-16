@@ -1,5 +1,5 @@
 {
-  "name": "yourname/cloudns-client",
+  "name": "qcloudns/client",
   "description": "A simple PHP client for ClouDNS API",
   "autoload": {
     "psr-4": {
