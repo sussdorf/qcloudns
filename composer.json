@@ -1,0 +1,13 @@
+{
+  "name": "yourname/cloudns-client",
+  "description": "A simple PHP client for ClouDNS API",
+  "autoload": {
+    "psr-4": {
+      "Qcloudns\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "guzzlehttp/guzzle": "^7.0"
+  }
+}
