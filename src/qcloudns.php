@@ -15,8 +15,15 @@ class Client {
     // Define constants for endpoints
     private const ENDPOINT_GET_ACCOUNT_INFO = 'get-account-info.json';
     private const ENDPOINT_ADD_ZONE = 'register.json';
-    private const ENDPOINT_ADD_RECORD = 'add-record.json';
     private const ENDPOINT_DELETE_ZONE = 'delete.json';
+    private const ENDPOINT_LIST_ZONES = 'list-zones.json';
+    private const ENDPOINT_UPDATE_ZONE = 'update-zone.json';
+    private const ENDPOINT_STATS_ZONE = 'get-zones-stats.json';
+    
+    
+    
+    private const ENDPOINT_ADD_RECORD = 'add-record.json';
+
 
     public function __construct(string $authId, string $authPassword) {
         $this->authId = $authId;
@@ -34,10 +41,8 @@ class Client {
      * @throws \Exception If the request fails.
      */
     private function request(string $endpoint, array $params = [], string $method = 'GET'): array {
-        $params = array_merge([
-            'auth-id' => $this->authId,
-            'auth-password' => $this->authPassword,
-        ], $params);
+        $params['auth-id'] = $this->authId;
+        $params['auth-password'] = $this->authPassword;
 
         try {
             $options = [
@@ -80,6 +85,40 @@ class Client {
      */
     public function deleteZone(string $domain,): array {
         return $this->request(self::ENDPOINT_DELETE_ZONE, [
+            'domain-name' => $domain,
+        ], 'POST');
+    }
+    /**
+     * List DNS zones.
+     *
+     * @param string $page.
+     * @return array The response from the API.
+     */
+    public function listZones(string $page,): array {
+        return $this->request(self::ENDPOINT_LIST_ZONES, [
+            'page' => 1,
+            'rows-per-page' => 10,
+        ], 'POST');
+    }
+    /**
+     * Gets the number of the zones you have and the zone limit of your customer plan. 
+     * Reverse zones are included.
+     *
+     * 
+     * @return array The response from the API.
+     */
+    public function statsZones(string $page,): array {
+        return $this->request(self::ENDPOINT_STATS_ZONE,'POST');
+    }
+
+    /**
+     * Update a  DNS zone.
+     *
+     * @param string $domain The domain name.
+     * @return array The response from the API.
+     */
+    public function updateZone(string $domain,): array {
+        return $this->request(self::ENDPOINT_UPDATE_ZONE, [
             'domain-name' => $domain,
         ], 'POST');
     }
