@@ -14,8 +14,9 @@ class Client {
 
     // Define constants for endpoints
     private const ENDPOINT_GET_ACCOUNT_INFO = 'get-account-info.json';
-    private const ENDPOINT_REGISTER = 'register.json';
+    private const ENDPOINT_ADD_ZONE = 'register.json';
     private const ENDPOINT_ADD_RECORD = 'add-record.json';
+    private const ENDPOINT_DELETE_ZONE = 'delete.json';
 
     public function __construct(string $authId, string $authPassword) {
         $this->authId = $authId;
@@ -57,15 +58,7 @@ class Client {
         }
     }
 
-    /**
-     * Get account information.
-     *
-     * @return array The account information.
-     */
-    public function getAccountInfo(): array {
-        return $this->request(self::ENDPOINT_GET_ACCOUNT_INFO);
-    }
-
+   
     /**
      * Create a new DNS zone.
      *
@@ -74,9 +67,20 @@ class Client {
      * @return array The response from the API.
      */
     public function createZone(string $domain, string $zoneType = 'master'): array {
-        return $this->request(self::ENDPOINT_REGISTER, [
+        return $this->request(self::ENDPOINT_ADD_ZONE, [
             'domain-name' => $domain,
             'zone-type' => $zoneType,
+        ], 'POST');
+    }
+    /**
+     * Delete a  DNS zone.
+     *
+     * @param string $domain The domain name.
+     * @return array The response from the API.
+     */
+    public function deleteZone(string $domain,): array {
+        return $this->request(self::ENDPOINT_DELETE_ZONE, [
+            'domain-name' => $domain,
         ], 'POST');
     }
 
