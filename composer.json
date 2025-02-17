@@ -1,5 +1,6 @@
 {
   "name": "qcloudns/client",
+  "license": "MIT",
   "description": "A simple PHP client for ClouDNS API",
   "autoload": {
     "psr-4": {
@@ -9,5 +10,17 @@
   "require": {
     "php": ">=8.0",
     "guzzlehttp/guzzle": "^7.0"
-  }
+  },
+  "support": {
+        "email": "support@dotnic.de"
+  },
+  "authors": [
+        {
+            "name": "Maik Sussdorf",
+            "email": "sussdorf@dotnic.de",
+            "homepage": "https://www.dotnic.de",
+            "role": "Developer"
+        }
+  ]
+  
 }
