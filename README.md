@@ -24,7 +24,7 @@ composer require qcloudns/client
 
 ## Usage
 
-```bash
+```php
 require 'vendor/autoload.php';
 
 use Qcloudns\Client;
@@ -41,21 +41,21 @@ $recordManager = new RecordManager($client);
 
 ### Add DNS Zone
 
-```bash
+```php
 $response = $zoneManager->createZone('example.com');
 print_r($response);
 ```
 
 ### Update DNS Zone
 
-```bash
+```php
 $response = $zoneManager->updateZone('example.com');
 print_r($response);
 ```
 
 ### List DNS Zones
 
-```bash
+```php
 $response = $zoneManager->listZones();
 print_r($response);
 
@@ -63,7 +63,7 @@ print_r($response);
 
 ### Delete DNS Zones
 
-```bash
+```php
 $response = $zoneManager->listZones();
 print_r($response);
 
@@ -73,35 +73,49 @@ print_r($response);
 
 ### Add Record
 
-```bash
-$response = $recordManager->createRecord(string $domain, string $recordtype, string $host, string $record, int $ttl, int $priority=false);
+```php
+$data = [
+    'record-type' => 'A',
+    'host' => 'www',
+    'record' => '192.0.2.1',
+    'ttl' => 3600,
+    'priority' => 10
+];
+$response = $recordManager->createRecord('example.com', $data);
 print_r($response);
 ```
 
 ### Modify Record
 
-```bash
-$response = $recordManager->updateRecord(string $domain, string $recordtype, string $host, string $record, int $ttl, int $priority=false);
+```php
+$data = [
+    'record-id' => 1234,
+    'host' => 'www',
+    'record' => '192.0.2.1',
+    'ttl' => 3600,
+    'priority' => 10
+];
+$response = $recordManager->updateRecord('example.com', $data);
 print_r($response);
 ```
 
 ### Get Record(Single)
 
-```bash
+```php
 $response = $recordManager->getRecord(string $domain, string $recordid);
 print_r($response);
 ```
 
 ### Get All Records from given Zone
 
-```bash
+```php
 $response = $recordManager->listRecords(string $domain);
 print_r($response);
 ```
 
 ### Delete Record
 
-```bash
+```php
 $response = $recordManager->deleteRecord(string $domain, string $recordid);
 print_r($response);
 ```
