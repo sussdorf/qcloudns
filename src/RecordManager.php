@@ -10,29 +10,31 @@ class RecordManager {
         $this->client = $client;
     }
 
-    public function createRecord(string $domain, string $recordtype, string $host, string $record, int $ttl, int $priority=false): array {
-        return $this->client->request('add-record.json', [
-            'domain-name' => $domain,
-            'zone-type' => $zoneType,
-            'record-type' => $recordtype,
-            'record-name' => $recordname,
-            'record' => $record,
-            'ttl' => $ttl,
-            'priority' => $priority,
+    public function createRecord(string $domain, $data): array {
+       
+        $req_data = ['domain-name' => $domain];
 
-        ], 'POST');
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->fields)) {
+                $req_data[$key] = $value;
+            }
+        }
+       
+        
+        return $this->client->request('add-record.json', $req_data, 'POST');
     }
 
-    public function updateRecord(string $domain, string $recordid, string $host, string $record, int $ttl, int $priority=false): array {
-        return $this->client->request('mod-record.json', [
-            'domain-name' => $domain,
-            'record-id' => $recordid,
-            'host' => $recordtype,
-            'record' => $record,
-            'ttl' => $ttl,
-            'priority' => $priority,
+    public function updateRecord(string $domain,$data): array {
+        
+        $req_data = ['domain-name' => $domain];
 
-        ], 'POST');
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->fields)) {
+                $req_data[$key] = $value;
+            }
+        }
+        
+        return $this->client->request('mod-record.json', $req_data, 'POST');
     }
    
     public function getRecord(string $domain, string $recordid): array {
