@@ -29,7 +29,7 @@ require 'vendor/autoload.php';
 
 use Qcloudns\Client;
 use Qcloudns\ZoneManager;
-
+use Qcloudns\RecordManager;
 $authId = 'your-auth-id';
 $authPassword = 'your-auth-password';
 $client = new Client($authId, $authPassword);
@@ -64,7 +64,7 @@ print_r($response);
 ### Delete DNS Zones
 
 ```php
-$response = $zoneManager->listZones();
+$response = $zoneManager->dwleteZones('example.com');
 print_r($response);
 
 ```
